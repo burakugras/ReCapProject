@@ -8,9 +8,30 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Car mercedes = new Car() { BrandId = 3, BrandName = "Mercedes", ColorId = 3, DailyPrice = 25000, ModelYear = 2018, Description = "Diesel motor Mercedes" };
-        Car ferrari = new Car() { BrandId = 4, BrandName = "Ferrari", ColorId = 3, DailyPrice = 55000, ModelYear = 2023, Description = "Ultra luxury Ferrari" };
-        Car volvo = new Car() { BrandId = 5, BrandName = "Volvo", ColorId = 3, DailyPrice = 5000, ModelYear = 2023, Description = "cheap model for Volvo" };
+
+
+        //CarDtoTest();
+        //EfCarTest();
+        //InMemoryTest();
+
+    }
+
+    private static void CarDtoTest()
+    {
+        CarManager carManager = new CarManager(new EfCarDal());
+
+        foreach (var car in carManager.GetCarDetails())
+        {
+            Console.WriteLine($"{car.CarName} / {car.BrandName} / {car.ColorName} / {car.DailyPrice}");
+
+        }
+    }
+
+    private static void EfCarTest()
+    {
+        Car mercedes = new Car() { BrandId = 3, Name = "Mercedes", ColorId = 3, DailyPrice = 25000, ModelYear = 2018, Description = "Diesel motor Mercedes" };
+        Car ferrari = new Car() { BrandId = 4, Name = "Ferrari", ColorId = 3, DailyPrice = 55000, ModelYear = 2023, Description = "Ultra luxury Ferrari" };
+        Car volvo = new Car() { BrandId = 5, Name = "Volvo", ColorId = 3, DailyPrice = 5000, ModelYear = 2023, Description = "cheap model for Volvo" };
 
         CarManager carManager = new CarManager(new EfCarDal());
 
@@ -21,21 +42,17 @@ internal class Program
         carManager.Delete(mercedes);
         carManager.Delete(ferrari);
         carManager.Delete(volvo);
-
-
-        //InMemoryTest();
-
     }
 
     private static void InMemoryTest()
     {
         ICarService carService = new CarManager(new InMemoryCarDal());
 
-        Car mercedes = new Car() { Id = 3, BrandId = 3, BrandName = "Mercedes", ColorId = 3, DailyPrice = 25000, ModelYear = 2018, Description = "Diesel motor Mercedes" };
+        Car mercedes = new Car() { Id = 3, BrandId = 3, Name = "Mercedes", ColorId = 3, DailyPrice = 25000, ModelYear = 2018, Description = "Diesel motor Mercedes" };
 
-        Car ferrari = new Car() { Id = 4, BrandId = 4, BrandName = "Ferrai", ColorId = 3, DailyPrice = 55000, ModelYear = 2023, Description = "Ultra luxury Ferrari" };
+        Car ferrari = new Car() { Id = 4, BrandId = 4, Name = "Ferrai", ColorId = 3, DailyPrice = 55000, ModelYear = 2023, Description = "Ultra luxury Ferrari" };
 
-        Car volvo = new Car() { Id = 5, BrandId = 5, BrandName = "Volvo", ColorId = 3, DailyPrice = 5000, ModelYear = 2023, Description = "cheap model for Volvo" };
+        Car volvo = new Car() { Id = 5, BrandId = 5, Name = "Volvo", ColorId = 3, DailyPrice = 5000, ModelYear = 2023, Description = "cheap model for Volvo" };
 
         carService.Add(mercedes);
         carService.Add(ferrari);
@@ -46,12 +63,12 @@ internal class Program
 
         //Console.WriteLine(carService.GetCarById(4).BrandName);
 
-        ferrari.BrandName = "Ferrari";
+        ferrari.Name = "Ferrari";
         carService.Update(ferrari);
 
         foreach (var cars in carService.GetAll())
         {
-            Console.WriteLine(cars.BrandName);
+            Console.WriteLine(cars.Name);
         }
     }
 }
