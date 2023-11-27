@@ -3,14 +3,53 @@ using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using System;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
+        Color blue = new Color() { Name = "Blue" };
+        Brand maserati = new Brand() { Name = "Maserati" };
+        Brand volkswagen = new Brand() { Name = "Volkswagen" };
+
+        ColorManager colorManager = new ColorManager(new EfColorDal());
+        blue.Id = 1003;
+        blue.Name = "Dark Blue";
+        colorManager.Update(blue);
+
+        BrandManager brandManager = new BrandManager(new EfBrandDal());
+        maserati.Id = 1002;
+        maserati.Name = "Masserati";
+        brandManager.Update(maserati);
+        brandManager.Add(volkswagen);
+
+        CarManager carManager = new CarManager(new EfCarDal());
 
 
-        //CarDtoTest();
+        using (RentACarDBContext context = new RentACarDBContext())
+        {
+            int carIdToUpdate = 4; //volvo ----> Volkwagen
+            var carToUpdate = context.Cars.Find(carIdToUpdate);
+
+            if (carToUpdate != null)
+            {
+                carToUpdate.Id = 4;
+                carToUpdate.Name = "Volkswagen";
+                carToUpdate.BrandId = 1003;
+                carToUpdate.ColorId = 3;
+                carToUpdate.ModelYear = 2022;
+                carToUpdate.DailyPrice = 7500;
+                carToUpdate.Description = "A wagen for folk";
+                carManager.Update(carToUpdate);
+            }
+            else
+            {
+                Console.WriteLine("No Match!");
+            }
+        }
+
+        CarDtoTest();
         //EfCarTest();
         //InMemoryTest();
 
