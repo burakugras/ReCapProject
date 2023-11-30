@@ -9,6 +9,16 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        //UpdateTest();
+
+        CarDtoTest();
+        //EfCarTest();
+        //InMemoryTest();
+
+    }
+
+    private static void UpdateTest()
+    {
         Color blue = new Color() { Name = "Blue" };
         Brand maserati = new Brand() { Name = "Maserati" };
         Brand volkswagen = new Brand() { Name = "Volkswagen" };
@@ -48,11 +58,6 @@ internal class Program
                 Console.WriteLine("No Match!");
             }
         }
-
-        CarDtoTest();
-        //EfCarTest();
-        //InMemoryTest();
-
     }
 
     private static void CarDtoTest()
