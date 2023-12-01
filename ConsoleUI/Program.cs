@@ -64,7 +64,7 @@ internal class Program
     {
         CarManager carManager = new CarManager(new EfCarDal());
 
-        foreach (var car in carManager.GetCarDetails())
+        foreach (var car in carManager.GetCarDetails().Data)
         {
             Console.WriteLine($"{car.CarName} / {car.BrandName} / {car.ColorName} / {car.DailyPrice}");
 
@@ -110,7 +110,7 @@ internal class Program
         ferrari.Name = "Ferrari";
         carService.Update(ferrari);
 
-        foreach (var cars in carService.GetAll())
+        foreach (var cars in carService.GetAll().Data)
         {
             Console.WriteLine(cars.Name);
         }

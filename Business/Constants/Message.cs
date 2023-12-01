@@ -12,5 +12,7 @@ namespace Business.Constants
         public static string ProductDeleted = "Ürün silindi";
         public static string ProductUpdated = "Ürün güncellendi";
         public static string ProductNameInvalid = "Ürün geçersiz";
+        public static string RentalInvalid = "Araç kiralanamadı";
+        public static string RentalAdded = "Araç kiralandı";
     }
 }
