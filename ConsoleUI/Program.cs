@@ -9,12 +9,29 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //UpdateTest();
+        Car car = new Car() { BrandId = 1, ColorId = 1, Name = "Toyota", ModelYear = 2019, DailyPrice = 22000, Description = "High segment Toyota Corolla" };
 
-        CarDtoTest();
+        CarManager carManager = new CarManager(new EfCarDal());
+        //carManager.Add(car);
+
+        User user = new User() { FirstName = "Cenk", LastName = "Gündoğdu", Email = "cenkgundogdu@mail.com", Password = "1234" };
+        UserManager userManager = new UserManager(new EfUserDal());
+        //userManager.Add(user);
+
+        Customer customer = new Customer() { UserId = 1, CompanyName = "Budget" };
+        CustomerManager customerManager = new CustomerManager(new EFCustomerDal());
+        //customerManager.Add(customer);
+
+        Rental rental = new Rental() { CarId = 2002, CustomerId = 3, RentDate = new DateTime(2023, 10, DateTime.DaysInMonth(2023, 10)), ReturnDate = new DateTime(2023, 11, DateTime.DaysInMonth(2023, 11)) };
+        RentalManager rentalManager = new RentalManager(new EfRentalDal());
+        //rentalManager.Add(rental);
+
+
+
+        //UpdateTest();
+        //CarDtoTest();
         //EfCarTest();
         //InMemoryTest();
-
     }
 
     private static void UpdateTest()
