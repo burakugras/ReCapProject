@@ -9,22 +9,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Car car = new Car() { BrandId = 1, ColorId = 1, Name = "Toyota", ModelYear = 2019, DailyPrice = 22000, Description = "High segment Toyota Corolla" };
-
-        CarManager carManager = new CarManager(new EfCarDal());
-        //carManager.Add(car);
-
-        User user = new User() { FirstName = "Cenk", LastName = "Gündoğdu", Email = "cenkgundogdu@mail.com", Password = "1234" };
-        UserManager userManager = new UserManager(new EfUserDal());
-        //userManager.Add(user);
-
-        Customer customer = new Customer() { UserId = 1, CompanyName = "Budget" };
-        CustomerManager customerManager = new CustomerManager(new EFCustomerDal());
-        //customerManager.Add(customer);
-
-        Rental rental = new Rental() { CarId = 2002, CustomerId = 3, RentDate = new DateTime(2023, 10, DateTime.DaysInMonth(2023, 10)), ReturnDate = new DateTime(2023, 11, DateTime.DaysInMonth(2023, 11)) };
-        RentalManager rentalManager = new RentalManager(new EfRentalDal());
-        //rentalManager.Add(rental);
+        RentalDetailsDtoTest();
 
 
 
@@ -32,6 +17,31 @@ internal class Program
         //CarDtoTest();
         //EfCarTest();
         //InMemoryTest();
+    }
+
+    private static void RentalDetailsDtoTest()
+    {
+        Car car = new Car() { BrandId = 1, ColorId = 1, Name = "Toyota", ModelYear = 2019, DailyPrice = 22000, Description = "High segment Toyota Corolla" };
+
+        CarManager carManager = new CarManager(new EfCarDal());
+        //carManager.Add(car);
+
+        User user = new User() { FirstName = "Mehmet", LastName = "Beyaz", Email = "mbeyaz@mail.com", Password = "123456" };
+        UserManager userManager = new UserManager(new EfUserDal());
+        //userManager.Add(user);
+
+        Customer customer = new Customer() { UserId = 3, CompanyName = "Avis" };
+        CustomerManager customerManager = new CustomerManager(new EFCustomerDal());
+        //customerManager.Add(customer);
+
+        Rental rental = new Rental() { CarId = 1, CustomerId = 3, RentDate = new DateTime(2023, 10, DateTime.DaysInMonth(2023, 10)), ReturnDate = null };
+        RentalManager rentalManager = new RentalManager(new EfRentalDal());
+        //rentalManager.Add(rental);
+
+        foreach (var rentals in rentalManager.GetRentalDetails().Data)
+        {
+            Console.WriteLine($"{rentals.FirstName} / {rentals.LastName} / {rentals.CarName} / {rentals.RentDate} / {rentals.ReturnDate}");
+        }
     }
 
     private static void UpdateTest()

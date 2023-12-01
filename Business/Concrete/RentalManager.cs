@@ -2,7 +2,9 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +80,11 @@ namespace Business.Concrete
         {
             _rentalDal.Update(rental);
             return new SuccessResult(Message.ProductUpdated);
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccesDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
     }
 }
