@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface IBrandService
     {
         IDataResult<List<Brand>> GetAll();
-        IDataResult<Brand> GetCarById(int id);
+        IDataResult<Brand> GetBrandById(int id);
         IResult Add(Brand car);
         IResult Update(Brand car);
         IResult Delete(Brand car);

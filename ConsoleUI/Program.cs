@@ -9,7 +9,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        RentalDetailsDtoTest();
+        //RentalDetailsDtoTest();
 
 
 
@@ -31,7 +31,7 @@ internal class Program
         //userManager.Add(user);
 
         Customer customer = new Customer() { UserId = 3, CompanyName = "Avis" };
-        CustomerManager customerManager = new CustomerManager(new EFCustomerDal());
+        CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
         //customerManager.Add(customer);
 
         Rental rental = new Rental() { CarId = 1, CustomerId = 3, RentDate = new DateTime(2023, 10, DateTime.DaysInMonth(2023, 10)), ReturnDate = null };
