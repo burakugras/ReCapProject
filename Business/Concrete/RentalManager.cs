@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.DependencyResolvers.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -20,45 +22,16 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
+
+
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            IResult result = CheckRentalRules(rental);//burada bir sonuç istiyor
-
-            if (result.Success)
-            {
-                _rentalDal.Add(rental);
-                return new SuccessResult(Message.RentalAdded);
-            }
-
-            return result;
-
-        }
-
-        private IResult CheckRentalRules(Rental rental)
-        {
-            if (rental.ReturnDate == null)
-            {
-                return new ErrorResult(Message.RentalInvalid);
-            }
-
-            if (IsCarNotReturnedYet(rental.CarId))
-            {
-                return new ErrorResult(Message.RentalInvalid);
-            }
-
+            _rentalDal.Add(rental);
             return new SuccessResult(Message.RentalAdded);
+
         }
 
-        private bool IsCarNotReturnedYet(int carId)
-        {
-            var lastRental = _rentalDal.GetLastRentalByCarId(carId);
-            //en son durumu kiralanmamışsa ve returnDate null ise araç dönmedi yani, dönmeme durumu true
-            if (lastRental != null && lastRental.ReturnDate == null)
-            {
-                return true;
-            }
-            return false;
-        }
 
         public IResult Delete(Rental rental)
         {
